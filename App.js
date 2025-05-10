@@ -12,11 +12,11 @@ export default function App() {
         const { pais } = busqueda;
         const consultarPais = async () => {
             if (consultar) {
-                const url = `https://servicodados.ibge.gov.br/api/v1/paises/${pais}`;
+                const url = `https://restcountries.com/v3.1/alpha/${pais}`;
                 try {
                     const respuesta = await fetch(url);
                     const resultado = await respuesta.json();
-                    guardarResultado(resultado);
+                    guardarResultado(resultado[0]);
                     guardarConsultar(false);
                 } catch (error) {
                     mostrarAlerta();
@@ -25,6 +25,7 @@ export default function App() {
         };
         consultarPais();
     }, [consultar, busqueda]);
+    
 
     const mostrarAlerta = () => {
         Alert.alert('Error', 'No hay resultado intenta con otra ciudad o país', [
